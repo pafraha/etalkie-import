@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload test{% endblock %}
+{% block description %}This page will render a simple form to upload a file.{% endblock %}
+
+{% block body %}
+    <main class="container container-fluid">
+        <div class="bg-body-tertiary p-3 rounded">
+            <h1 class="h2">Importer un fichier</h1>
+
+            {% if app.request.hasPreviousSession %}
+                {% for label, messages in app.session.flashbag.all() %}
+                    <div class="alert alert-{{ label }} alert-dismissible fade show">
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {{ form_start(form, { attr: { 'accept-charset' : 'utf-8' }}) }}
+                <div class="form-group">
+                    {{ form_label(form.upload_file) }}
+                    {{ form_widget(form.upload_file, {'attr' : { 'class': 'form-control my-3'}}) }}
+                    {{ form_errors(form.upload_file) }}
+                </div>
+
+                <div class="form-group">
+                    {{ form_widget(form.send, {'label': "Upload this file", 'attr' : { 'class': 'btn btn-primary' }}) }}
+                </div>
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+
+        <hr>
+
+        <h2>Listes</h2>
+
+        <br>
+
+        <div class="table-responsive small">
+            <table class="table table-striped table-sm" id="datatable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Compte Affaire</th>
+                        <th>Compte évènement (Veh)</th>
+                        <th>Compte dernier évènement (Veh)</th>
+                        <th>Numéro de fiche</th>
+                        <th>Libellé civilité</th>
+                        <th>Propriétaire actuel du véhicule</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>N° et Nom de la voie</th>
+                        <th>Complément adresse 1</th>
+                        <th>Code postal</th>
+                        <th>Ville</th>
+                        <th>Téléphone domicile</th>
+                        <th>Téléphone portable</th>
+                        <th>Téléphone job</th>
+                        <th>Email</th>
+                        <th>Date de mise en circulation</th>
+                        <th>Date achat (date de livraison)</th>
+                        <th>Date dernier évènement (Veh)</th>
+                        <th>Libellé marque (Mrq)</th>
+                        <th>Libellé modèle (Mod)</th>
+                        <th>Version</th>
+                        <th>VIN</th>
+                        <th>Immatriculation</th>
+                        <th>Type de prospect</th>
+                        <th>Kilométrage</th>
+                        <th>Libellé énergie (Energ)</th>
+                        <th>Vendeur VN</th>
+                        <th>Vendeur VO</th>
+                        <th>Commentaire de facturation (Veh)</th>
+                        <th>Type VN VO</th>
+                        <th>Numéro de dossier VN VO</th>
+                        <th>Intermediaire de vente VN</th>
+                        <th>Date évènement (Veh)</th>
+                        <th>Origine évènement (Veh)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for offer in offers %}
+                        <tr>
+                            <td>{{ offer.id }}</td>
+                            <td>{{ offer.getCompteAffaire() }}</td>
+                            <td>{{ offer.getCompteEvenementVeh() }}</td>
+                            <td>{{ offer.getCompteDernierEvenementVeh() }}</td>
+                            <td>{{ offer.getNumeroFiche() }}</td>
+                            <td>{{ offer.getLibelleCivilite() }}</td>
+                            <td>{{ offer.getProprietaireActuel() }}</td>
+                            <td>{{ offer.getNom() }}</td>
+                            <td>{{ offer.getPrenom() }}</td>
+                            <td>{{ offer.getNumeroEtNomVoie() }}</td>
+                            <td>{{ offer.getComplementAdresse1() }}</td>
+                            <td>{{ offer.getCodePostal() }}</td>
+                            <td>{{ offer.getVille() }}</td>
+                            <td>{{ offer.getTelephoneDomicile() }}</td>
+                            <td>{{ offer.getTelephonePortable() }}</td>
+                            <td>{{ offer.getTelephoneJob() }}</td>
+                            <td>{{ offer.getEmail() }}</td>
+                            <td>{{ offer.getDateMiseEnCirculation() }}</td>
+                            <td>{{ offer.getDateAchat() }}</td>
+                            <td>{{ offer.getDateDernierEvenementVeh() }}</td>
+                            <td>{{ offer.getLibelleMarque() }}</td>
+                            <td>{{ offer.getLibelleModele() }}</td>
+                            <td>{{ offer.getVersion() }}</td>
+                            <td>{{ offer.getVin() }}</td>
+                            <td>{{ offer.getImmatriculation() }}</td>
+                            <td>{{ offer.getTypeProspect() }}</td>
+                            <td>{{ offer.getKilometrage() }}</td>
+                            <td>{{ offer.getLibelleEnergie() }}</td>
+                            <td>{{ offer.getVendeurVN() }}</td>
+                            <td>{{ offer.getVendeurVO() }}</td>
+                            <td>{{ offer.getCommentaireFacturation() }}</td>
+                            <td>{{ offer.getTypeVNVO() }}</td>
+                            <td>{{ offer.getNumeroDossierVNVO() }}</td>
+                            <td>{{ offer.getIntermediaireVente() }}</td>
+                            <td>{{ offer.getDateEvenementVeh() }}</td>
+                            <td>{{ offer.getOrigineEvenementVeh() }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+{% endblock %}
